@@ -1,0 +1,20 @@
+{
+  "name": "lyrics-crawler",
+  "version": "1.0.0",
+  "description": "Crawler for azlyrics.com",
+  "repository": "https://github.com/ericlam51/rap-vocabulary",
+  "scripts": {
+    "start": "node ./src/index.js lint:watch",
+    "lint": "./node_modules/.bin/eslint src ",
+    "lint:watch": "npm run lint -- --watch"
+  },
+  "author": "",
+  "dependencies": {
+    "simplecrawler": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}
