@@ -1,0 +1,4 @@
+/node_modules
+/resources/*.txt
+.idea
+bash.exe.stackdump
