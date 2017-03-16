@@ -24,6 +24,3 @@ crawler.start(function(content, artist) {
     scrapper.extractLyrics();
 });
 
-console.log(artists);
-module.exports = artists;
-

@@ -27,10 +27,13 @@ var self = module.exports = {
      */
     extractData: function(html, path) {
         var $ = cheerio.load(html);
-
+        var count = 0;
 
         $('#listAlbum').find('a').each(function() {
             var link = $(this).attr('href');
+
+            if(count == 50)
+                return false; //break each loop
 
             if(link == undefined)
                 return true; //equivalent to continue
@@ -47,6 +50,8 @@ var self = module.exports = {
                 console.log('Queuing: ' + link);
                 crawler.addToQueue(link);
             }
+
+            count++;
         });
 
     },
@@ -57,21 +62,16 @@ var self = module.exports = {
      * @param path
      */
     extractLyrics: function () {
-        console.log('here');
         crawler.start(function (content, path) {
             var $ = cheerio.load(content);
             var artist = self.extractArtistFromUrl(path);
-            console.log("Artist" + artist);
             if(artist !== null){
-                console.log("Artist" + artist);
                 var filePath = 'resources/lyrics/'+artist+'.txt';
 
                 var content = $('.ringtone').nextAll('div').first().text();
-                if($(".feat")){
-                    //todo
-                } else{
-                    content = content.replace(/\[.*\]/g, ''); //remove [Verse:]
-                }
+                content = content.replace(/\[.*\]/g, ''); //remove [Verse:]
+                content = content.replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, ''); //punctuation
+                content = content.replace(/(?:\r\n|\r|\n)/g, ''); //make everything on the same line
 
                 fs.appendFile(filePath, content, (err) => {
                     if (err) throw err;

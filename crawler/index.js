@@ -10,6 +10,7 @@ class Crawler {
         this.crawler = new SimpleCrawler(baseUrl);
         this.crawler.interval = 10000; // three seconds
         this.crawler.maxConcurrency = 1;
+        this.crawler.maxDepth = 1;
     }
 
     /**
@@ -21,7 +22,7 @@ class Crawler {
         var startTime = null;
         var endTime = null;
 
-        console.log("==========================================================")
+        console.log("==========================================================");
         this.crawler.queue.countItems({ status: "queued"}, function(error, count) {
             console.log("The number of queue items: %d", count);
         });
@@ -40,11 +41,8 @@ class Crawler {
         });
 
         this.crawler.on("fetchcomplete", function(queueItem, responseBuffer, response) {
-            var regex = /\/[a-z].html/g;
-            if(!regex.test(queueItem.path)){
-                console.log("Path: "  + queueItem.path);
-                callback(responseBuffer, queueItem.path);
-            }
+            console.log("Path: "  + queueItem.path);
+            callback(responseBuffer, queueItem.path);
         });
 
         this.crawler.on("complete", function(queueItem, responseObject) {
