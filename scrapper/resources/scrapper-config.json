@@ -1,0 +1,6 @@
+{
+    "article" : {
+        "base": "#listAlbum",
+        "link": "a"
+    }
+}
