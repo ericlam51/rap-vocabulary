@@ -71,9 +71,9 @@ var self = module.exports = {
                 var content = $('.ringtone').nextAll('div').first().text();
                 content = content.replace(/\[.*\]/g, ''); //remove [Verse:]
                 content = content.replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, ''); //punctuation
-                content = content.replace(/(?:\r\n|\r|\n)/g, ''); //make everything on the same line
+                content = content.replace(/(?:\r\n|\r|\n)/g, ' '); //make everything on the same line
 
-                fs.appendFile(filePath, content, (err) => {
+                fs.appendFile(filePath, '\r\n'+content, (err) => {
                     if (err) throw err;
                     console.log('The "data to append" was appended to file!');
                 });
